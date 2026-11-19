@@ -15,3 +15,6 @@ test-results/
 .env
 .env.*
 !.env.example
+
+# Disposable consumers created by fresh-export browser tests
+examples/screen-*/.export-check-*/

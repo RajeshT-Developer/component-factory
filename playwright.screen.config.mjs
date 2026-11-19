@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 const apps = [
-  { name: "builder", directory: "apps/workbench", port: 5190, match: /builder\.spec\.mjs/ },
+  { name: "builder", directory: "apps/workbench", port: 5190, match: /(?:builder|exports|project)\.spec\.mjs/ },
   { name: "react", directory: "examples/screen-react", port: 5191, match: /consumers\.spec\.mjs/ },
   { name: "vue", directory: "examples/screen-vue", port: 5192, match: /consumers\.spec\.mjs/ }
 ];

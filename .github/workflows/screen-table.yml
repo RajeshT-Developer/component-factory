@@ -1,19 +1,22 @@
 name: Screen table integration
 on:
   push:
-    branches: [main, feature/screen-table-integration]
+    branches: [main, feature/screen-table-integration, 'release/**']
   pull_request:
 permissions:
   contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: '22'
+          package-manager-cache: false
       - name: Install test dependencies
         run: npm ci
       - name: Install workbench dependencies
@@ -24,12 +27,40 @@ jobs:
         run: npm ci --prefix examples/screen-vue
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Unit tests, production builds and screen browser tests
+      - name: Unit tests, production builds, screen and fresh-export browser tests
         run: node scripts/verify-screen-table.cjs --browser
-      - name: Preserve failure traces
+      - name: Preserve failure traces and generated exports
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: screen-test-results
           path: test-results/
+          if-no-files-found: ignore
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - run: npm ci
+      - run: npm ci --prefix fixtures/html
+      - run: npm ci --prefix fixtures/react
+      - run: npm ci --prefix fixtures/vue
+      - run: npx playwright install --with-deps chromium
+      - name: Existing HTML React Vue component parity suite
+        run: npm test
+      - name: Preserve parity diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: component-parity-results
+          path: |
+            test-results/
+            reports/
+            playwright-report/
           if-no-files-found: ignore
