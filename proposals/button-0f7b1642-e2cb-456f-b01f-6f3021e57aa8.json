@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "contractId": "react-button-proposal-v1",
+  "createdAt": "2026-11-16T04:31:11.176Z",
+  "provider": "openai",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "responseId": "resp_09e5aa9537ebe662016afa870d1f4487d28542f361976900fe",
+  "sourceDescription": "Create a button labelled Save changes",
+  "reviewStatus": "pending-review",
+  "validationScope": "react-button-proposal-contract",
+  "proposal": {
+    "config": {
+      "label": "Save changes",
+      "icon": "none",
+      "type": "button",
+      "disabled": false
+    },
+    "rationale": "Proposed a draft button configuration matching the requested visible text and using the contract defaults for unspecified properties.",
+    "unsupportedRequests": [],
+    "needsClarification": false,
+    "questions": []
+  },
+  "usage": {
+    "input_tokens": 334,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cache_write_tokens_details": {
+        "ttl_12h_tokens": 0,
+        "ttl_30m_tokens": 0
+      },
+      "cached_tokens": 0
+    },
+    "output_tokens": 65,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 399
+  }
+}

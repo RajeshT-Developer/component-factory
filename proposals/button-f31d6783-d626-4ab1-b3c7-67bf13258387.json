@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "contractId": "button-prototype-v1",
+  "createdAt": "2026-11-16T04:08:44.512Z",
+  "provider": "openai",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "responseId": "resp_0908f7a79ae97b85016afa81cab60c87d299caaf244ffbaa98",
+  "sourceDescription": "Create an Add item button with a plus icon",
+  "reviewStatus": "needs-attention",
+  "validationScope": "temporary-prototype-contract-only",
+  "proposal": {
+    "config": {
+      "label": "Add item",
+      "type": "button",
+      "disabled": false
+    },
+    "rationale": "Draft proposal for a visible button labeled 'Add item' using the default button type and enabled state. The requested plus icon cannot be included in this contract, so the label is preserved without the icon.",
+    "unsupportedRequests": [
+      "plus icon"
+    ],
+    "needsClarification": false,
+    "questions": []
+  },
+  "usage": {
+    "input_tokens": 303,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cache_write_tokens_details": {
+        "ttl_12h_tokens": 0,
+        "ttl_30m_tokens": 0
+      },
+      "cached_tokens": 0
+    },
+    "output_tokens": 84,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 387
+  }
+}

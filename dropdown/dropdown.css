@@ -1,0 +1,210 @@
+/* Demo layout */
+body {
+  margin: 0;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+.demo {
+  max-width: 960px;
+  margin-inline: auto;
+  padding: 32px 16px;
+}
+
+.demo__navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.demo__section {
+  margin-block-start: 32px;
+  padding: 24px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+#action-status {
+  min-height: 24px;
+}
+
+/* Reusable dropdown */
+.ui-dropdown {
+  position: relative;
+  display: inline-block;
+
+  --dropdown-bg: #ffffff;
+  --dropdown-text: #0f172a;
+  --dropdown-hover: #eff6ff;
+  --dropdown-focus: #1d4ed8;
+  --dropdown-border: #cbd5e1;
+}
+
+/* Ensure hidden overrides display declarations. */
+.ui-dropdown [hidden] {
+  display: none !important;
+}
+
+.ui-dropdown__caret {
+  width: 8px;
+  height: 8px;
+  margin-inline-start: 4px;
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.ui-dropdown__trigger[aria-expanded="true"] .ui-dropdown__caret {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.ui-dropdown__panel {
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 200px;
+  max-width: min(320px, calc(100vw - 32px));
+
+  margin: 8px 0 0;
+  padding: 6px;
+
+  list-style: none;
+  border: 1px solid var(--dropdown-border);
+  border-radius: 10px;
+
+  background: var(--dropdown-bg);
+  color: var(--dropdown-text);
+  box-shadow: 0 8px 24px rgb(15 23 42 / 12%);
+}
+
+/* Added by JS after initialization. */
+.ui-dropdown[data-enhanced] .ui-dropdown__panel {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-start: 0;
+  z-index: 20;
+}
+
+/* Optional right-edge alignment. */
+.ui-dropdown[data-align="end"] .ui-dropdown__panel {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
+.ui-dropdown__item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  line-height: 1.4;
+  text-align: start;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.ui-dropdown__icon {
+  display: inline-flex;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.ui-dropdown__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (hover: hover) {
+  .ui-dropdown__item:hover {
+    background: var(--dropdown-hover);
+  }
+}
+
+.ui-dropdown__item:focus-visible {
+  outline: 2px solid var(--dropdown-focus);
+  outline-offset: -2px;
+  background: var(--dropdown-hover);
+}
+
+.ui-dropdown__item:active {
+  background: #dbeafe;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-dropdown__caret,
+  .ui-dropdown__item {
+    transition: none;
+  }
+}
+
+
+/* Scroll animation: controlled by the HTML attribute. */
+html {
+  scroll-behavior: auto;
+}
+
+html[data-smooth-scroll="true"] {
+  scroll-behavior: smooth;
+}
+
+/* Checkbox layout */
+.demo__scroll-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: fit-content;
+  min-height: 44px;
+  margin-block-end: 16px;
+
+  cursor: pointer;
+}
+
+.demo__scroll-toggle input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #1d4ed8;
+}
+
+.demo__scroll-toggle input:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+/* Leave a little space above each anchor destination. */
+.demo__section {
+  scroll-margin-block-start: 24px;
+}
+
+/* Respect the visitor's system accessibility preference. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-smooth-scroll="true"] {
+    scroll-behavior: auto;
+  }
+}
+
+/* Demo only: provide enough distance to test scrolling. */
+.demo__section {
+  min-height: 60vh;
+}

@@ -1,0 +1,177 @@
+.ui-dropdown {
+  --dropdown-bg: #ffffff;
+  --dropdown-text: #0f172a;
+  --dropdown-border: #cbd5e1;
+  --dropdown-hover: #f1f5f9;
+  --dropdown-active: #e2e8f0;
+  --dropdown-focus: #2563eb;
+
+  --dropdown-trigger-bg: #1d4ed8;
+  --dropdown-trigger-hover: #1e40af;
+  --dropdown-trigger-text: #ffffff;
+
+  position: relative;
+  display: inline-block;
+
+  color: var(--dropdown-text);
+  font: inherit;
+}
+
+.ui-dropdown,
+.ui-dropdown * {
+  box-sizing: border-box;
+}
+
+.ui-dropdown [hidden] {
+  display: none !important;
+}
+
+/* Trigger styles keep this checkpoint independent of button.css. */
+
+.ui-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+
+  background: var(--dropdown-trigger-bg);
+  color: var(--dropdown-trigger-text);
+
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.4;
+
+  cursor: pointer;
+
+  transition: background-color 160ms ease;
+}
+
+.ui-dropdown__chevron {
+  display: inline-block;
+
+  width: 0.5rem;
+  height: 0.5rem;
+
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+
+  transform: translateY(-0.125rem) rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.ui-dropdown__trigger[aria-expanded="true"]
+.ui-dropdown__chevron {
+  transform: translateY(0.125rem) rotate(225deg);
+}
+
+/* Before initialization, links remain an ordinary visible list. */
+
+.ui-dropdown__panel {
+  width: min(17rem, calc(100vw - 3rem));
+
+  margin: 0.5rem 0 0;
+  padding: 0.25rem;
+
+  list-style: none;
+
+  border: 1px solid var(--dropdown-border);
+  border-radius: 0.75rem;
+
+  background: var(--dropdown-bg);
+}
+
+.ui-dropdown[data-enhanced="true"] .ui-dropdown__panel {
+  position: absolute;
+  top: 100%;
+  inset-inline-start: 0;
+  z-index: 100;
+
+  max-height: min(24rem, 60vh);
+  overflow-y: auto;
+
+  box-shadow: 0 8px 24px rgb(15 23 42 / 12%);
+}
+
+.ui-dropdown[data-align="end"] .ui-dropdown__panel {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
+.ui-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 0.75rem;
+
+  border: 0;
+  border-radius: 0.5rem;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  line-height: 1.4;
+  text-align: start;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+
+  cursor: pointer;
+
+  transition: background-color 160ms ease;
+}
+
+.ui-dropdown__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.ui-dropdown__icon > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (hover: hover) {
+  .ui-dropdown__trigger:hover {
+    background: var(--dropdown-trigger-hover);
+  }
+
+  .ui-dropdown__item:hover {
+    background: var(--dropdown-hover);
+  }
+}
+
+.ui-dropdown__item:active {
+  background: var(--dropdown-active);
+}
+
+.ui-dropdown__trigger:focus-visible,
+.ui-dropdown__item:focus-visible {
+  outline: 3px solid var(--dropdown-focus);
+  outline-offset: 2px;
+}
+
+.ui-dropdown__item:focus-visible {
+  outline-offset: -3px;
+  background: var(--dropdown-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-dropdown__trigger,
+  .ui-dropdown__chevron,
+  .ui-dropdown__item {
+    transition: none;
+  }
+}

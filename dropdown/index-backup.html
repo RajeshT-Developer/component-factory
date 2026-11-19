@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" data-smooth-scroll="true">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Reusable Dropdown</title>
+
+  <link rel="stylesheet" href="./button.css">
+  <link rel="stylesheet" href="./dropdown.css">
+
+  <script src="./dropdown.js" defer></script>
+</head>
+
+<body>
+  <main class="demo">
+    <h1>Dropdown component</h1>
+    <label class="demo__scroll-toggle">
+        <input
+            id="smooth-scroll-toggle"
+            type="checkbox"
+            checked
+        >
+        Smooth scrolling
+    </label>
+    <nav class="demo__navigation" aria-label="Demo navigation">
+
+      <!-- Dropdown 1 -->
+      <div class="ui-dropdown" data-dropdown>
+        <button
+          class="ui-button ui-dropdown__trigger"
+          type="button"
+          aria-expanded="false"
+          aria-controls="browse-dropdown"
+          data-dropdown-trigger
+          hidden
+        >
+          Browse
+          <span class="ui-dropdown__caret" aria-hidden="true"></span>
+        </button>
+
+        <ul
+          class="ui-dropdown__panel"
+          id="browse-dropdown"
+          data-dropdown-panel
+        >
+          <!-- Navigation enabled: use an anchor with a real URL. -->
+          <li>
+            <a class="ui-dropdown__item" href="#cars">
+              <span class="ui-dropdown__icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  focusable="false"
+                >
+                  <path d="m5 11 2-6h10l2 6"></path>
+                  <path d="M4 11h16v7H4z"></path>
+                  <path d="M7 18v2m10-2v2M7 14h.01M17 14h.01"></path>
+                </svg>
+              </span>
+
+              <span>Browse cars</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="ui-dropdown__item" href="#auctions">
+              Upcoming auctions
+            </a>
+          </li>
+
+          <!-- Navigation disabled: use a button and action identifier. -->
+          <li>
+            <button
+              class="ui-dropdown__item"
+              type="button"
+              data-action="open-filters"
+              hidden
+            >
+              Open filters
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Dropdown 2: independent instance -->
+      <div class="ui-dropdown" data-dropdown>
+        <button
+          class="ui-button ui-dropdown__trigger"
+          type="button"
+          aria-expanded="false"
+          aria-controls="account-dropdown"
+          data-dropdown-trigger
+          hidden
+        >
+          Account
+          <span class="ui-dropdown__caret" aria-hidden="true"></span>
+        </button>
+
+        <ul
+          class="ui-dropdown__panel"
+          id="account-dropdown"
+          data-dropdown-panel
+        >
+          <li>
+            <a class="ui-dropdown__item" href="#profile">
+              My profile
+            </a>
+          </li>
+
+          <li>
+            <button
+              class="ui-dropdown__item"
+              type="button"
+              data-action="open-settings"
+              hidden
+            >
+              Settings
+            </button>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+
+    <p id="action-status" role="status"></p>
+
+    <!-- Local destinations so navigation works immediately. -->
+    <section class="demo__section" id="cars">
+      <h2>Cars</h2>
+      <p>Your cars listing will go here.</p>
+    </section>
+
+    <section class="demo__section" id="auctions">
+      <h2>Upcoming auctions</h2>
+      <p>Your auction listing will go here.</p>
+    </section>
+
+    <section class="demo__section" id="profile">
+      <h2>My profile</h2>
+      <p>Your profile content will go here.</p>
+    </section>
+  </main>
+</body>
+</html>

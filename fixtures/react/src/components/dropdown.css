@@ -1,0 +1,60 @@
+/* React demo layout */
+.dropdown-demo {
+  margin-block: 32px;
+}
+
+.dropdown-demo__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.dropdown-demo__scroll-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: fit-content;
+  min-height: 44px;
+  margin-block: 16px;
+
+  cursor: pointer;
+}
+
+.dropdown-demo__scroll-toggle input {
+  width: 18px;
+  height: 18px;
+}
+
+.dropdown-demo__status {
+  min-height: 24px;
+}
+
+.dropdown-demo__destination {
+  box-sizing: border-box;
+  min-height: 60vh;
+
+  margin-block-start: 24px;
+  padding: 24px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+
+  scroll-margin-block-start: 24px;
+}
+
+/* Applied by the React demo's checkbox. */
+html[data-react-smooth-scroll="true"] {
+  scroll-behavior: smooth;
+}
+
+html[data-react-smooth-scroll="false"] {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-react-smooth-scroll="true"] {
+    scroll-behavior: auto;
+  }
+}

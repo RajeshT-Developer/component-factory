@@ -1,0 +1,155 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #172033;
+  background: #f5f7fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button {
+  font: inherit;
+}
+
+.fixture-shell {
+  width: min(100% - 2rem, 1000px);
+  margin-inline: auto;
+  padding-block: 2rem;
+}
+
+.fixture-header {
+  margin-bottom: 2rem;
+}
+
+.fixture-eyebrow {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.125rem;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.scenario-card,
+.event-panel {
+  min-width: 0;
+  padding: 1.25rem;
+
+  border: 1px solid #d8dee8;
+  border-radius: 0.75rem;
+
+  background: #ffffff;
+}
+
+.scenario-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 140px;
+  padding: 1rem;
+
+  border: 1px dashed #d8dee8;
+  border-radius: 0.5rem;
+
+  background: #f8fafc;
+}
+
+.scenario-preview--narrow {
+  width: min(100%, 240px);
+  margin-inline: auto;
+}
+
+.event-panel {
+  margin-top: 1.5rem;
+}
+
+.event-panel__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.event-panel__heading h2 {
+  margin: 0;
+}
+
+.fixture-action {
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+
+  border: 1px solid #64748b;
+  border-radius: 0.375rem;
+
+  background: #ffffff;
+  color: inherit;
+
+  cursor: pointer;
+}
+
+.fixture-action:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.fixture-action:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.fixture-events {
+  display: grid;
+  gap: 0.75rem;
+
+  max-height: 320px;
+  overflow: auto;
+
+  padding: 0;
+  list-style: none;
+}
+
+.fixture-events li {
+  display: grid;
+  gap: 0.375rem;
+
+  padding: 0.75rem;
+
+  border: 1px solid #d8dee8;
+  border-radius: 0.375rem;
+
+  overflow-wrap: anywhere;
+}
+
+.fixture-events code {
+  color: #1e40af;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .scenario-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

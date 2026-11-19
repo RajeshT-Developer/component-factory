@@ -1,0 +1,22 @@
+{
+  "id": "react-button-proposal-v1",
+  "properties": {
+    "label": "Non-empty visible button text",
+    "icon": ["none", "plus"],
+    "type": ["button", "submit", "reset"],
+    "disabled": "Boolean"
+  },
+  "defaults": {
+    "icon": "none",
+    "type": "button",
+    "disabled": false
+  },
+  "unsupported": [
+    "Icons other than plus",
+    "Loading states",
+    "Custom styling through AI-generated configuration",
+    "Click handlers",
+    "Navigation",
+    "Generated code"
+  ]
+}

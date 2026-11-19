@@ -1,0 +1,78 @@
+.ui-button {
+  --button-bg: #1d4ed8;
+  --button-hover-bg: #1e40af;
+  --button-active-bg: #1e3a8a;
+  --button-text: #ffffff;
+  --button-focus: #2563eb;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  max-width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+
+  background: var(--button-bg);
+  color: var(--button-text);
+
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: background-color 160ms ease;
+}
+
+.ui-button__label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ui-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.ui-button__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (hover: hover) {
+  .ui-button:not(:disabled):hover {
+    background: var(--button-hover-bg);
+  }
+}
+
+.ui-button:not(:disabled):active {
+  background: var(--button-active-bg);
+}
+
+.ui-button:focus-visible {
+  outline: 3px solid var(--button-focus);
+  outline-offset: 3px;
+}
+
+.ui-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-button {
+    transition: none;
+  }
+}

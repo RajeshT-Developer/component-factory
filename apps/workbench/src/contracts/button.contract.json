@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "component": "Button",
+  "props": {
+    "label": {
+      "type": "string",
+      "required": true,
+      "minLength": 1,
+      "maxLength": 80,
+      "default": "Add item"
+    },
+    "icon": {
+      "type": "enum",
+      "values": ["none", "plus"],
+      "default": "none"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "type": {
+      "type": "enum",
+      "values": ["button", "submit", "reset"],
+      "default": "button"
+    }
+  },
+  "events": [
+    "click",
+    "mouseenter",
+    "mouseleave",
+    "focus",
+    "blur"
+  ],
+  "requirements": [
+    "Render a native button element",
+    "Use a non-empty text label",
+    "Hide decorative icons from assistive technology",
+    "Prevent activation when disabled",
+    "Show a visible keyboard focus indicator"
+  ]
+}

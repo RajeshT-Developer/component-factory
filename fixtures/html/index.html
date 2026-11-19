@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Button HTML Fixture</title>
+  </head>
+
+  <body>
+    <main class="fixture-shell">
+      <header class="fixture-header">
+        <p class="fixture-eyebrow">Component Factory · HTML fixture</p>
+
+        <h1>Button scenarios</h1>
+
+        <p>
+          Native HTML implementations using the shared button stylesheet.
+        </p>
+      </header>
+
+      <section
+        class="scenario-grid"
+        aria-label="Button scenarios"
+      >
+        <article
+          class="scenario-card"
+          data-scenario="text-default"
+          aria-labelledby="text-default-title"
+        >
+          <h2 id="text-default-title">Text only</h2>
+
+          <div class="scenario-preview">
+            <button
+              class="ui-button"
+              type="button"
+              data-fixture-button
+            >
+              <span class="ui-button__label">Save changes</span>
+            </button>
+          </div>
+        </article>
+
+        <article
+          class="scenario-card"
+          data-scenario="icon-default"
+          aria-labelledby="icon-default-title"
+        >
+          <h2 id="icon-default-title">Icon and text</h2>
+
+          <div class="scenario-preview">
+            <button
+              class="ui-button"
+              type="button"
+              data-fixture-button
+            >
+              <span
+                class="ui-button__icon"
+                aria-hidden="true"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  focusable="false"
+                >
+                  <path d="M12 5v14M5 12h14"></path>
+                </svg>
+              </span>
+
+              <span class="ui-button__label">Add item</span>
+            </button>
+          </div>
+        </article>
+
+        <article
+          class="scenario-card"
+          data-scenario="disabled"
+          aria-labelledby="disabled-title"
+        >
+          <h2 id="disabled-title">Disabled</h2>
+
+          <div class="scenario-preview">
+            <button
+              class="ui-button"
+              type="button"
+              data-fixture-button
+              disabled
+            >
+              <span class="ui-button__label">Unavailable</span>
+            </button>
+          </div>
+        </article>
+
+        <article
+          class="scenario-card"
+          data-scenario="long-label"
+          aria-labelledby="long-label-title"
+        >
+          <h2 id="long-label-title">Long label</h2>
+
+          <div class="scenario-preview scenario-preview--narrow">
+            <button
+              class="ui-button"
+              type="button"
+              data-fixture-button
+            >
+              <span class="ui-button__label">
+                Save all changes and continue to the next configuration step
+              </span>
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <section
+        class="event-panel"
+        aria-labelledby="events-title"
+      >
+        <div class="event-panel__heading">
+          <h2 id="events-title">Event log</h2>
+
+          <button
+            id="clear-events"
+            class="fixture-action"
+            type="button"
+            disabled
+          >
+            Clear log
+          </button>
+        </div>
+
+        <p>
+          Latest event first. Retains up to 50 events.
+          This log requires JavaScript.
+        </p>
+
+        <p id="empty-events">No events yet.</p>
+
+        <ol
+          id="event-list"
+          class="fixture-events"
+        ></ol>
+      </section>
+    </main>
+          <section
+        class="event-panel"
+        aria-labelledby="dropdown-title"
+      >
+        <h2 id="dropdown-title">Dropdown scenarios</h2>
+
+        <p>
+          Navigation links and actions using the shared HTML dropdown.
+        </p>
+
+        <div class="ui-dropdown" data-dropdown>
+          <button
+            class="ui-dropdown__trigger"
+            type="button"
+            data-dropdown-trigger
+            aria-expanded="false"
+            aria-controls="html-browse-panel"
+            hidden
+          >
+            <span>Browse</span>
+
+            <span
+              class="ui-dropdown__chevron"
+              aria-hidden="true"
+            ></span>
+          </button>
+
+          <ul
+            id="html-browse-panel"
+            class="ui-dropdown__panel"
+            data-dropdown-panel
+          >
+            <li>
+              <a
+                class="ui-dropdown__item"
+                href="#html-cars"
+                data-dropdown-item
+                data-item-id="cars"
+              >
+                Browse cars
+              </a>
+            </li>
+
+            <li hidden data-dropdown-action-row>
+              <button
+                class="ui-dropdown__item"
+                type="button"
+                data-dropdown-item
+                data-item-id="filters"
+                data-action="open-filters"
+              >
+                Open filters
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <p id="html-dropdown-result" role="status">
+          No action selected yet.
+        </p>
+
+        <section
+          id="html-cars"
+          aria-labelledby="html-cars-title"
+        >
+          <h3 id="html-cars-title">Cars</h3>
+
+          <p>Browse cars navigates to this section.</p>
+        </section>
+      </section>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

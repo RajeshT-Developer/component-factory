@@ -1,0 +1,23 @@
+{
+  "name": "component-factory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:button": "playwright test tests/parity/button.spec.mjs",
+    "test:report": "playwright show-report playwright-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.65.1"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "dotenv": "^18.0.10",
+    "openai": "^7.57.0"
+  }
+}

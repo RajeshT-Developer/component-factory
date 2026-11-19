@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "contractId": "button-prototype-v1",
+  "createdAt": "2026-11-16T04:06:06.363Z",
+  "provider": "openai",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "responseId": "resp_0f337e2e30c57629016afa812bd41487d2b92dbada4ec50a85",
+  "sourceDescription": "Create a button labelled Save Changes",
+  "reviewStatus": "pending-review",
+  "validationScope": "temporary-prototype-contract-only",
+  "proposal": {
+    "config": {
+      "label": "Save Changes",
+      "type": "button",
+      "disabled": false
+    },
+    "rationale": "Proposed a standard button configuration using the requested visible text and the contract defaults for type and disabled state. This is a draft for human review.",
+    "unsupportedRequests": [],
+    "needsClarification": false,
+    "questions": []
+  },
+  "usage": {
+    "input_tokens": 300,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cache_write_tokens_details": {
+        "ttl_12h_tokens": 0,
+        "ttl_30m_tokens": 0
+      },
+      "cached_tokens": 0
+    },
+    "output_tokens": 70,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 370
+  }
+}

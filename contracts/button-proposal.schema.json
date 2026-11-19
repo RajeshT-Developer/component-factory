@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "config": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "icon": {
+          "type": "string",
+          "enum": ["none", "plus"]
+        },
+        "type": {
+          "type": "string",
+          "enum": ["button", "submit", "reset"]
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "label",
+        "icon",
+        "type",
+        "disabled"
+      ],
+      "additionalProperties": false
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "unsupportedRequests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "needsClarification": {
+      "type": "boolean"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "config",
+    "rationale",
+    "unsupportedRequests",
+    "needsClarification",
+    "questions"
+  ],
+  "additionalProperties": false
+}
