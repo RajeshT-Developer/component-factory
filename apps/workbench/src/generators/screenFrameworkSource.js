@@ -1,201 +1,84 @@
 import { generateButtonSource } from "./buttonSource.js";
 import { generateDropdownFiles } from "./dropdownSource.js";
-
+import { createDefaultTableConfig } from "../models/tableConfig.js";
+import { validateScreenConfig } from "../models/screenConfig.js";
+import { serialize, frameworkTable, tableCss } from "./tableSource.js";
 import screenCss from "../styles/screen.css?raw";
 
-function serialize(value) {
-  return JSON.stringify(value, null, 2)
-    .replace(/</g, "\\u003c")
-    .replace(/>/g, "\\u003e")
-    .replace(/&/g, "\\u0026")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-function file(filename, source, mimeType = "text/plain") {
-  return { filename, source, mimeType };
-}
-
-function combineFiles(files) {
-  const result = new Map();
-
-  for (const current of files) {
-    const previous = result.get(current.filename);
-
-    if (previous && previous.source !== current.source) {
-      throw new Error(
-        `Conflicting exported files: ${current.filename}`
-      );
-    }
-
-    if (!previous) {
-      result.set(current.filename, current);
-    }
-  }
-
-  return [...result.values()];
-}
-
-function reactScreenSource(screenConfig) {
-  return `import { useState } from "react";
+function screenSource(config, framework) {
+  const { table, ...definition } = config;
+  const data = serialize(definition);
+  if (framework === "react") return `import { useId, useState } from "react";
 import ConfiguredButton from "./ConfiguredButton.jsx";
 import ConfiguredDropdown from "./ConfiguredDropdown.jsx";
+import ConfiguredTable from "./ConfiguredTable.jsx";
 import "./screen.css";
-
-const screen = ${serialize(screenConfig)};
-
-export default function ConfiguredScreen({
-  onPrimaryAction,
-  onDropdownAction
-} = {}) {
+const screen = ${data};
+export default function ConfiguredScreen({ rows = [], onPrimaryAction, onDropdownAction, onRowAction } = {}) {
+  const titleId = useId();
   const [status, setStatus] = useState("");
-
-  function handlePrimaryAction(event) {
-    setStatus("Primary action received.");
-    onPrimaryAction?.(event);
-  }
-
-  return (
-    <main className="screen-shell">
-      <header className="screen-header">
-        <h1>{screen.title}</h1>
-        <p>{screen.description}</p>
-      </header>
-
-      <div
-        className="screen-toolbar"
-        role="group"
-        aria-label="Screen actions"
-      >
-        <ConfiguredDropdown onAction={onDropdownAction} />
-        <ConfiguredButton onClick={handlePrimaryAction} />
-      </div>
-
-      <p className="screen-feedback" role="status">
-        {status}
-      </p>
-
-      <section
-        id="factory-cars"
-        className="screen-content"
-        aria-labelledby="screen-content-title"
-      >
-        <h2 id="screen-content-title">
-          {screen.contentHeading}
-        </h2>
-
-        <p>{screen.contentText}</p>
-      </section>
-    </main>
-  );
+  function primary(event) { setStatus("Primary action received."); onPrimaryAction?.(event); }
+  return <main className="screen-shell">
+    <header className="screen-header"><h1>{screen.title}</h1><p>{screen.description}</p></header>
+    <div className="screen-toolbar" role="group" aria-label="Screen actions"><ConfiguredDropdown onAction={onDropdownAction} /><ConfiguredButton onClick={primary} /></div>
+    <p className="screen-feedback" role="status">{status}</p>
+    <section id="factory-cars" className="screen-content" aria-labelledby={titleId}>
+      <h2 id={titleId}>{screen.contentHeading}</h2>
+      {screen.contentMode === "table" ? <ConfiguredTable rows={rows} onRowAction={onRowAction} /> : <p>{screen.contentText}</p>}
+    </section>
+  </main>;
 }
 `;
-}
-
-function vueScreenSource(screenConfig) {
   return `<script setup>
 import { ref, useId } from "vue";
 import ConfiguredButton from "./ConfiguredButton.vue";
 import ConfiguredDropdown from "./ConfiguredDropdown.vue";
+import ConfiguredTable from "./ConfiguredTable.vue";
 import "./screen.css";
-
-const screen = ${serialize(screenConfig)};
-const contentTitleId = useId();
+const screen = ${data};
+const props = defineProps({ rows: { type: Array, default: () => [] } });
+const emit = defineEmits(["primary-action", "dropdown-action", "row-action"]);
+const titleId = useId();
 const status = ref("");
-
-const emit = defineEmits(["primary-action", "dropdown-action"]);
-
-function handlePrimaryAction(event) {
-  status.value = "Primary action received.";
-  emit("primary-action", event);
-}
-
-function handleDropdownAction(action, item) {
-  emit("dropdown-action", action, item);
-}
+function primary(event) { status.value = "Primary action received."; emit("primary-action", event); }
+function dropdown(action, item) { emit("dropdown-action", action, item); }
+function rowAction(action, row) { emit("row-action", action, row); }
 </script>
-
 <template>
   <main class="screen-shell">
-    <header class="screen-header">
-      <h1>{{ screen.title }}</h1>
-      <p>{{ screen.description }}</p>
-    </header>
-
-    <div
-      class="screen-toolbar"
-      role="group"
-      aria-label="Screen actions"
-    >
-      <ConfiguredDropdown @action="handleDropdownAction" />
-      <ConfiguredButton @click="handlePrimaryAction" />
-    </div>
-
-    <p class="screen-feedback" role="status">
-      {{ status }}
-    </p>
-
-    <section
-      id="factory-cars"
-      class="screen-content"
-      :aria-labelledby="contentTitleId"
-    >
-      <h2 :id="contentTitleId">
-        {{ screen.contentHeading }}
-      </h2>
-
-      <p>{{ screen.contentText }}</p>
+    <header class="screen-header"><h1>{{ screen.title }}</h1><p>{{ screen.description }}</p></header>
+    <div class="screen-toolbar" role="group" aria-label="Screen actions"><ConfiguredDropdown @action="dropdown" /><ConfiguredButton @click="primary" /></div>
+    <p class="screen-feedback" role="status">{{ status }}</p>
+    <section id="factory-cars" class="screen-content" :aria-labelledby="titleId">
+      <h2 :id="titleId">{{ screen.contentHeading }}</h2>
+      <ConfiguredTable v-if="screen.contentMode === 'table'" :rows="props.rows" @row-action="rowAction" />
+      <p v-else>{{ screen.contentText }}</p>
     </section>
   </main>
 </template>
 `;
 }
-
-export function generateScreenFrameworkFiles(
-  screenConfig,
-  buttonConfig,
-  dropdownConfig,
-  framework
-) {
-  if (!["react", "vue"].includes(framework)) {
-    throw new Error(`Unsupported screen framework: ${framework}`);
-  }
-
-  const button = generateButtonSource(
-    buttonConfig,
-    framework
-  );
-
-  const dropdownFiles = generateDropdownFiles(
-    dropdownConfig,
-    framework
-  );
-
-  if (!button || dropdownFiles.length === 0) {
-    return [];
-  }
-
-  const screenFilename = framework === "react"
-    ? "ConfiguredScreen.jsx"
-    : "ConfiguredScreen.vue";
-
-  const screenSource = framework === "react"
-    ? reactScreenSource(screenConfig)
-    : vueScreenSource(screenConfig);
-
-  return combineFiles([
-    file(screenFilename, screenSource),
-
+export function generateScreenFrameworkFiles(config, buttonConfig, dropdownConfig, framework) {
+  if (!["react", "vue"].includes(framework)) throw new Error(`Unsupported screen framework: ${framework}`);
+  if (!validateScreenConfig(config).valid) return [];
+  const button = generateButtonSource(buttonConfig, framework);
+  const dropdown = generateDropdownFiles(dropdownConfig, framework);
+  if (!button || !dropdown.length) return [];
+  const file = (filename, source, mimeType = "text/plain") => ({ filename, source, mimeType });
+  const extension = framework === "react" ? "jsx" : "vue";
+  const files = [
+    file(`ConfiguredScreen.${extension}`, screenSource(config, framework)),
+    file(`ConfiguredTable.${extension}`, frameworkTable(config.table ?? createDefaultTableConfig(), framework)),
     file(button.filename, button.source, button.mimeType),
-
-    file(
-      button.stylesheetFilename,
-      button.stylesheet,
-      "text/css"
-    ),
-
-    ...dropdownFiles,
-
-    file("screen.css", screenCss, "text/css")
-  ]);
+    file(button.stylesheetFilename, button.stylesheet, "text/css"),
+    ...dropdown,
+    file("screen.css", screenCss + tableCss, "text/css")
+  ];
+  const result = new Map();
+  for (const current of files) {
+    const previous = result.get(current.filename);
+    if (previous && previous.source !== current.source) throw new Error(`Conflicting exported files: ${current.filename}`);
+    if (!previous) result.set(current.filename, current);
+  }
+  return [...result.values()];
 }
