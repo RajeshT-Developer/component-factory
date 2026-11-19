@@ -51,7 +51,13 @@ export default {
       <textarea v-if="field.rows" :value="modelValue[field.key]" :rows="field.rows" :maxlength="field.max" @input="updateField(field.key, $event.target.value)"></textarea>
       <input v-else :value="modelValue[field.key]" :maxlength="field.max" @input="updateField(field.key, $event.target.value)">
     </label>
-    <label>Content type<select :value="contentMode" @change="updateContentMode($event.target.value)"><option value="text">Text</option><option value="table">Table</option></select></label>
+    <div class="screen-content-mode-control">
+      <label id="screen-content-mode-label" for="screen-content-mode">Content type</label>
+      <select id="screen-content-mode" aria-labelledby="screen-content-mode-label" :value="contentMode" @change="updateContentMode($event.target.value)">
+        <option value="text">Text</option>
+        <option value="table">Table</option>
+      </select>
+    </div>
     <TableConfigPanel v-if="contentMode === 'table'" :model-value="tableConfig" @update:model-value="updateField('table', $event)" />
     <ul v-if="!validation.valid" role="status"><li v-for="(error, index) in validation.errors" :key="index">{{ error }}</li></ul>
   </section>
@@ -85,6 +91,8 @@ export default {
 <style scoped>
 .screen-settings, .screen-preview-panel { min-width: 0; }
 .screen-settings label { display: grid; gap: .375rem; margin-block: 1rem; }
+.screen-content-mode-control { display: grid; gap: .375rem; margin-block: 1rem; }
+.screen-content-mode-control label { margin: 0; }
 .screen-settings input, .screen-settings textarea, .screen-settings button, .screen-settings select, .screen-width-control select { box-sizing: border-box; max-width: 100%; min-height: 44px; padding: .625rem; border: 1px solid #64748b; border-radius: .375rem; background: white; color: #172033; font: inherit; }
 .screen-settings input, .screen-settings textarea { width: 100%; min-width: 0; }
 .screen-settings textarea { resize: vertical; }

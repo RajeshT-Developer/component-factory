@@ -25,7 +25,11 @@ test("row actions support keyboard activation at mobile width", async ({ page })
 });
 test("primary action still reaches the host", async ({ page }) => {
   await page.goto("/");
-  await page.locator(".screen-toolbar .ui-button").click();
+  const primary = page.getByRole("group", { name: "Screen actions", exact: true })
+    .getByRole("button", { name: "Add item", exact: true });
+  await expect(primary).toHaveCount(1);
+  await expect(primary).toBeEnabled();
+  await primary.click();
   await expect(page.locator(".consumer-feedback [role=status]")).toContainText("The consumer received the primary action.");
 });
 test("dropdown action still reaches the host without navigating", async ({ page }) => {
