@@ -1,0 +1,35 @@
+name: Screen table integration
+on:
+  push:
+    branches: [main, feature/screen-table-integration]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test dependencies
+        run: npm ci
+      - name: Install workbench dependencies
+        run: npm ci --prefix apps/workbench
+      - name: Install React consumer dependencies
+        run: npm ci --prefix examples/screen-react
+      - name: Install Vue consumer dependencies
+        run: npm ci --prefix examples/screen-vue
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Unit tests, production builds and screen browser tests
+        run: node scripts/verify-screen-table.cjs --browser
+      - name: Preserve failure traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screen-test-results
+          path: test-results/
+          if-no-files-found: ignore
